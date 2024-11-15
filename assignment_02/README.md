@@ -83,26 +83,27 @@ d. Copy and paste the new regression model estimates after the commands
 ```summary(lm_full_model)``` and ```summary(lm_no_damage)```. 
 
 ```
-> summary(lm_no_damages)
+> summary(lm_full_model)
 
 Call:
-lm(formula = car_price ~ mileage + accident, data = car_data)
+lm(formula = car_price ~ mileage + accident + damage, data = car_data)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--9975.3 -2851.8   182.6  2916.9 11959.9 
+-9975.8 -2852.6   138.6  2984.7 11962.1 
 
 Coefficients:
               Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  5.233e+04  2.398e+03  21.825  < 2e-16 ***
-mileage     -2.533e-01  4.907e-02  -5.162  1.3e-06 ***
-accident    -5.245e+03  8.768e+02  -5.982  3.7e-08 ***
+(Intercept) 52318.9751  2404.3050  21.761  < 2e-16 ***
+mileage        -0.2530     0.0492  -5.142 1.43e-06 ***
+accident    -5380.9746   900.0428  -5.979 3.84e-08 ***
+damage       1805.2839  2557.6011   0.706    0.482    
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 4249 on 97 degrees of freedom
-Multiple R-squared:  0.4295,	Adjusted R-squared:  0.4177 
-F-statistic: 36.51 on 2 and 97 DF,  p-value: 1.509e-12
+Residual standard error: 4260 on 96 degrees of freedom
+Multiple R-squared:  0.4324,	Adjusted R-squared:  0.4147 
+F-statistic: 24.38 on 3 and 96 DF,  p-value: 8.179e-12
 
 
 > summary(lm_no_damages)
