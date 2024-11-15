@@ -60,7 +60,8 @@ with and without the damage variable.
 How does this relate to the coefficient for ```DAMAGE```?
 
 ```
-Type your response here.
+The estimated coefficient for accident without damages(-8.7) is larger that the coefficient for accidents including damage (-4.63) 
+
 ```
 
 
@@ -69,7 +70,7 @@ c. Compare the values of
 Which model do you recommend (pretending that you don't know the true model)? 
 
 ```
-Type your response here.
+I would suggest the Model inclusive of damages Due to a higher R squared being a more precisee gauge of accuracy
 ```
 
 
@@ -82,7 +83,48 @@ d. Copy and paste the new regression model estimates after the commands
 ```summary(lm_full_model)``` and ```summary(lm_no_damage)```. 
 
 ```
-Copy your results here.
+> summary(lm_no_damages)
+
+Call:
+lm(formula = car_price ~ mileage + accident, data = car_data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-9975.3 -2851.8   182.6  2916.9 11959.9 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  5.233e+04  2.398e+03  21.825  < 2e-16 ***
+mileage     -2.533e-01  4.907e-02  -5.162  1.3e-06 ***
+accident    -5.245e+03  8.768e+02  -5.982  3.7e-08 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 4249 on 97 degrees of freedom
+Multiple R-squared:  0.4295,	Adjusted R-squared:  0.4177 
+F-statistic: 36.51 on 2 and 97 DF,  p-value: 1.509e-12
+
+
+> summary(lm_no_damages)
+
+Call:
+lm(formula = car_price ~ mileage + accident, data = car_data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-9975.3 -2851.8   182.6  2916.9 11959.9 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  5.233e+04  2.398e+03  21.825  < 2e-16 ***
+mileage     -2.533e-01  4.907e-02  -5.162  1.3e-06 ***
+accident    -5.245e+03  8.768e+02  -5.982  3.7e-08 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 4249 on 97 degrees of freedom
+Multiple R-squared:  0.4295,	Adjusted R-squared:  0.4177 
+F-statistic: 36.51 on 2 and 97 DF,  p-value: 1.509e-12
 ```
 
 
