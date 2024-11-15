@@ -134,7 +134,7 @@ for ```ACCIDENT``` with and without the damage variable.
 How does this relate to the new coefficient for ```DAMAGE```?
 
 ```
-Type your response here.
+The accident coefficient when incorporating damages is almost twice as large in comparison to the coefficient without.
 ```
 
 
@@ -143,6 +143,6 @@ f. Compare the values of
 Now which model do you recommend (pretending that you don't know the true model)? 
 
 ```
-Type your response here.
+THe data set not incorporating Damages has a higher R squared, thus deducing the idea that the No Damages data is a more accurate representation
 ```
 
