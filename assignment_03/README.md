@@ -208,7 +208,7 @@ Does an additional hour of use affect the price of a John Deere tractor
 differently than tractors of other brands?
 	
 ```
-BASED ON THE REGRESSION AN EXTRA HOUR DOES AFFECT THE PRICE OF A JOHN DEERE TRACTOR: ENGHOURS= 4.337
+BASED ON THE REGRESSION AN EXTRA HOUR DOES AFFECT THE PRICE OF A JOHN DEERE TRACTOR: T VALUE: ENGHOURS= 4.337>1.96
 
 
 
