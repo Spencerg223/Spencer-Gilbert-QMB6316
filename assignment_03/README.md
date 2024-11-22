@@ -144,9 +144,19 @@ That is, are the t-statistics higher than 1.96, with the same sign as you hypoth
 
 ```
 
-Enter your response here.
-Use the coefficients from the regression output for this model to draw your conclusions.
-
+                     Estimate Std. Error t value Pr(>|t|) t-tEST 
+(Intercept)         9.001e+00  8.837e-02 101.852  < 2e-16 T>1.96
+horsepower          1.155e-02  1.069e-03  10.798  < 2e-16 T>1.96
+squared_horsepower -1.636e-05  2.258e-06  -7.247 4.69e-12 T<1.96
+age                -3.556e-02  3.628e-03  -9.801  < 2e-16 T<1.96
+enghours           -4.227e-05  9.745e-06  -4.337 2.06e-05 T<1.96
+cab                 4.786e-01  7.040e-02   6.798 7.06e-11 T>1.96
+fwd                 2.747e-01  5.905e-02   4.652 5.20e-06 T>1.96
+johndeere           1.854e-01  1.422e-01   1.304  0.19335 T<1.96   
+spring             -1.200e-01  6.615e-02  -1.814  0.07077 T<1.96  
+summer             -1.998e-01  6.470e-02  -3.088  0.00223 T<1.96 
+winter             -1.943e-01  7.199e-02  -2.699  0.00741 T<1.96 
+age:johndeere       5.114e-03  7.001e-03   0.731  0.46571 T<1.96  
 
 
 ```
@@ -161,7 +171,7 @@ Use the coefficients from the regression output for this model to draw your conc
 		no large change in the other coefficients.
 
 ```
-Enter your response here.
+UTILIZING THE MODEL INCORPORATING HORSEPOWER SQUARED HAS A HIGHER RSQUARED IN COMPARISON TO THE MODEL WITHOUT
 
 
 
@@ -174,9 +184,7 @@ d. Again, use the best model that results from the answer to the previous questi
 	Is there evidence that tractor prices follow a seasonal pattern? 
 
 ```
-Enter your response here.
-Use the coefficients from the regression output for this model to draw your conclusions.
-
+afTER RUNNING THE REGRESSION WITH THE SEASONAL INDICATORS: SEASONS SUMMER AND WINTER ARE SIGNIFICANT
 
 
 ```
@@ -189,8 +197,7 @@ e. Finally, consider another modification to your model.
 	You can test this by including an interaction with ```age:johndeere``` in the regression.
 	
 ```
-Enter your regression results here.
-
+BASED ON THE REGRESSION THE CHARACTERISTIC AGE:JOHN DEERE IS NOT SIGNIFICANT AT .731
 
 
 ```
@@ -201,7 +208,7 @@ Does an additional hour of use affect the price of a John Deere tractor
 differently than tractors of other brands?
 	
 ```
-Enter your response here.
+BASED ON THE REGRESSION AN EXTRA HOUR DOES AFFECT THE PRICE OF A JOHN DEERE TRACTOR: ENGHOURS= 4.337
 
 
 
