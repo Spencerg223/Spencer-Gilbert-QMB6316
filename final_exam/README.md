@@ -383,7 +383,7 @@ in a data frame called ```airplane_full``` in your workspace.
 
 ```
 
-> airplane_full <- merge(airplane_sales_specs, airplane_perf)
+>  airplane_full <- merge(airplane_sales_specs, airplane_perf, by = "X0Sale_ID")
 
 ```
 
@@ -394,7 +394,6 @@ Use this to get familiar with the contents of the dataset.
 
 ```
 
- summary(airplane_full)
    X0Sale_ID          age            price             pass            wtop       
  Min.   :101.0   Min.   :13.00   Min.   :  9000   Min.   :2.000   Min.   :0.0000  
  1st Qu.:149.5   1st Qu.:19.00   1st Qu.: 19250   1st Qu.:4.000   1st Qu.:0.0000  
@@ -430,10 +429,7 @@ Copy the printed estimation output from the ```summary``` command.
 
 ```
 
- model <- lm(data = airplane_full, formula = price ~ age + pass + wtop + fixgear + tdrag + horse + fuel + ceiling + cruise)
-> summary(model)
-
-Call:
+ Call:
 lm(formula = price ~ age + pass + wtop + fixgear + tdrag + horse + 
     fuel + ceiling + cruise, data = airplane_full)
 
@@ -545,31 +541,32 @@ c) Estimate a regression model to predict ```log_price``` as a function of
 
 
 ```
-
-> summary(model)
-
 Call:
-lm(formula = log_price ~ log_price + log_age + log_horse + log_fuel + 
-    log_ceiling + log_cruise, data = airplane_full)
+lm(formula = log_price ~ log_age + pass + wtop + fixgear + tdrag + 
+    log_horse + log_fuel + log_ceiling + log_cruise, data = airplane_full)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--0.52718 -0.14189  0.01641  0.10615  0.64710 
+-0.50754 -0.11123  0.00186  0.11226  0.53375 
 
 Coefficients:
-            Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  5.69547    0.61223   9.303  < 2e-16 ***
-log_age     -1.59205    0.06678 -23.839  < 2e-16 ***
-log_horse    1.07844    0.11251   9.585  < 2e-16 ***
-log_fuel     0.16538    0.09113   1.815   0.0711 .  
-log_ceiling -0.18728    0.08608  -2.176   0.0308 *  
-log_cruise   1.04677    0.15725   6.657 2.95e-10 ***
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  3.786112   1.067378   3.547 0.000494 ***
+log_age     -1.527922   0.063521 -24.054  < 2e-16 ***
+pass         0.048006   0.021645   2.218 0.027776 *  
+wtop        -0.048649   0.031384  -1.550 0.122823    
+fixgear     -0.179043   0.075662  -2.366 0.018998 *  
+tdrag       -0.459069   0.081906  -5.605 7.47e-08 ***
+log_horse    1.021321   0.135777   7.522 2.27e-12 ***
+log_fuel     0.167589   0.084245   1.989 0.048141 *  
+log_ceiling -0.005037   0.088651  -0.057 0.954748    
+log_cruise   1.086126   0.195242   5.563 9.18e-08 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 0.2054 on 189 degrees of freedom
-Multiple R-squared:  0.9326,	Adjusted R-squared:  0.9309 
-F-statistic: 523.4 on 5 and 189 DF,  p-value: < 2.2e-16
+Residual standard error: 0.1896 on 185 degrees of freedom
+Multiple R-squared:  0.9438,	Adjusted R-squared:  0.9411 
+F-statistic: 345.5 on 9 and 185 DF,  p-value: < 2.2e-16
 
 
 ```
@@ -588,16 +585,10 @@ d) If you notice that any coefficients are statistically insignificant,
 
 ```
 
-Enter a description of your sequence of adjustments
-to the regression model here.
-Be sure to address the four specification criteria
-described above.
-
-The coefficients "Log_Fuel and Log_Cruise" should be removed on the basis of being insignificant figures. 
-with t T-Value less than 2 according to the regression the coefficient should be removed from the regression.
-By removing the two coefficients individually, both R and Rsquared decreased slightly.These changes are justified due to
-improving the regression as a whole but also fuel efficiency and cruising ability should not be heavily weighted in 
-airplane sales, in comparison to the other criteria.
+By removing each of The coefficients with a T-score less than .05, it is proven that 
+(Log_age, Tdrag, Log_horse and Log Cruise) should be removed on the basis of being insignificant figures. 
+while removing these variables adjusted R squared decreased slightly in each iteration of the regression.
+The removal of these coefficients are justified due to improving the regression as a whole.
 
 ```
 
@@ -605,29 +596,31 @@ Next regression model:
 
 ```
 
-> summary(model)
-
 Call:
-lm(formula = log_price ~ log_price + log_age + log_horse + log_ceiling + 
-    log_cruise, data = airplane_full)
+lm(formula = log_price ~ pass + wtop + fixgear + tdrag + log_horse + 
+    log_fuel + log_ceiling + log_cruise, data = airplane_full)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--0.56522 -0.13234  0.00568  0.10912  0.68936 
+-0.83317 -0.26988 -0.01682  0.25043  1.00168 
 
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  5.59326    0.61331   9.120  < 2e-16 ***
-log_age     -1.60870    0.06655 -24.173  < 2e-16 ***
-log_horse    1.20713    0.08788  13.735  < 2e-16 ***
-log_ceiling -0.19450    0.08650  -2.249   0.0257 *  
-log_cruise   1.09213    0.15619   6.993 4.47e-11 ***
+(Intercept) -3.43813    2.07530  -1.657 0.099268 .  
+pass         0.16359    0.04276   3.826 0.000178 ***
+wtop        -0.05763    0.06358  -0.906 0.365899    
+fixgear     -0.21299    0.15328  -1.390 0.166318    
+tdrag       -0.69316    0.16478  -4.207 4.03e-05 ***
+log_horse   -0.19324    0.25537  -0.757 0.450184    
+log_fuel     0.45631    0.16895   2.701 0.007555 ** 
+log_ceiling -0.03642    0.17960  -0.203 0.839529    
+log_cruise   2.60365    0.37437   6.955 5.82e-11 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 0.2067 on 190 degrees of freedom
-Multiple R-squared:  0.9315,	Adjusted R-squared:   0.93 
-F-statistic: 645.6 on 4 and 190 DF,  p-value: < 2.2e-16
+Residual standard error: 0.3841 on 186 degrees of freedom
+Multiple R-squared:  0.7682,	Adjusted R-squared:  0.7582 
+F-statistic: 77.06 on 8 and 186 DF,  p-value: < 2.2e-16
 
 
 
@@ -636,30 +629,31 @@ F-statistic: 645.6 on 4 and 190 DF,  p-value: < 2.2e-16
 Next regression model, if necessary:
 
 ```
-
-> summary(model)
-
-Call:
-lm(formula = log_price ~ log_price + log_age + log_horse + log_fuel + 
-    log_ceiling, data = airplane_full)
+ Call:
+lm(formula = log_price ~ log_age + pass + wtop + fixgear + log_horse + 
+    log_fuel + log_ceiling + log_cruise, data = airplane_full)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--0.55953 -0.13165 -0.02852  0.16379  0.58027 
+-0.54774 -0.14318  0.01873  0.12605  0.63077 
 
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  7.03761    0.64059  10.986  < 2e-16 ***
-log_age     -1.79458    0.06588 -27.240  < 2e-16 ***
-log_horse    1.30641    0.11876  11.000  < 2e-16 ***
-log_fuel     0.26181    0.09970   2.626  0.00934 ** 
-log_ceiling  0.11399    0.08114   1.405  0.16167    
+(Intercept)  6.54040    1.02207   6.399 1.24e-09 ***
+log_age     -1.57022    0.06803 -23.081  < 2e-16 ***
+pass         0.02360    0.02287   1.032   0.3035    
+wtop        -0.04551    0.03385  -1.345   0.1804    
+fixgear      0.04295    0.06954   0.618   0.5376    
+log_horse    1.02013    0.14646   6.965 5.48e-11 ***
+log_fuel     0.16550    0.09087   1.821   0.0702 .  
+log_ceiling -0.19485    0.08837  -2.205   0.0287 *  
+log_cruise   0.91952    0.20815   4.418 1.69e-05 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 0.2276 on 190 degrees of freedom
-Multiple R-squared:  0.9168,	Adjusted R-squared:  0.9151 
-F-statistic: 523.8 on 4 and 190 DF,  p-value: < 2.2e-16
+Residual standard error: 0.2045 on 186 degrees of freedom
+Multiple R-squared:  0.9343,	Adjusted R-squared:  0.9315 
+F-statistic: 330.7 on 8 and 186 DF,  p-value: < 2.2e-16
 
 
 ```
@@ -668,7 +662,31 @@ Next regression model, if necessary:
 
 ```
 
-Copy your regression results here.
+Call:
+lm(formula = log_price ~ log_age + pass + tdrag + wtop + fixgear + 
+    log_fuel + log_ceiling + log_cruise, data = airplane_full)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.64150 -0.10855  0.00014  0.13650  0.48131 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  4.60627    1.21009   3.807 0.000191 ***
+log_age     -1.35023    0.06720 -20.093  < 2e-16 ***
+pass         0.14820    0.01944   7.622 1.24e-12 ***
+tdrag       -0.45811    0.09334  -4.908 2.01e-06 ***
+wtop        -0.01333    0.03536  -0.377 0.706749    
+fixgear     -0.18540    0.08622  -2.150 0.032832 *  
+log_fuel     0.49515    0.08219   6.025 8.90e-09 ***
+log_ceiling  0.03966    0.10080   0.393 0.694431    
+log_cruise   1.45916    0.21521   6.780 1.54e-10 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.2161 on 186 degrees of freedom
+Multiple R-squared:  0.9267,	Adjusted R-squared:  0.9235 
+F-statistic: 293.8 on 8 and 186 DF,  p-value: < 2.2e-16
 
 
 ```
@@ -677,7 +695,32 @@ Next regression model, if necessary:
 
 ```
 
-Copy your regression results here.
+Call:
+lm(formula = log_price ~ log_age + pass + tdrag + wtop + fixgear + 
+    log_fuel + log_ceiling + log_horse, data = airplane_full)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.57922 -0.14200  0.00888  0.15574  0.50178 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  7.21565    0.93887   7.686 8.51e-13 ***
+log_age     -1.64210    0.06477 -25.352  < 2e-16 ***
+pass         0.04272    0.02330   1.834   0.0683 .  
+tdrag       -0.38970    0.08722  -4.468 1.37e-05 ***
+wtop        -0.03095    0.03364  -0.920   0.3588    
+fixgear      0.07859    0.06447   1.219   0.2244    
+log_fuel     0.21867    0.09023   2.423   0.0163 *  
+log_ceiling  0.09669    0.09347   1.034   0.3023    
+log_horse    1.21317    0.14150   8.574 3.84e-15 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.2043 on 186 degrees of freedom
+Multiple R-squared:  0.9344,	Adjusted R-squared:  0.9316 
+F-statistic: 331.4 on 8 and 186 DF,  p-value: < 2.2e-16
+
 
 
 ```
@@ -690,28 +733,31 @@ of your final regression model.
 
 ```
 
-> summary(model)
-
 Call:
-lm(formula = log_price ~ log_price + log_age + log_horse + log_ceiling, 
-    data = airplane_full)
+lm(formula = log_price ~ log_age + pass + tdrag + wtop + fixgear + 
+    log_fuel + log_cruise + log_horse, data = airplane_full)
 
 Residuals:
-    Min      1Q  Median      3Q     Max 
--0.5520 -0.1343 -0.0170  0.1687  0.5838 
+     Min       1Q   Median       3Q      Max 
+-0.50764 -0.11136  0.00149  0.11191  0.53199 
 
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  6.96608    0.64981   10.72   <2e-16 ***
-log_age     -1.83588    0.06496  -28.26   <2e-16 ***
-log_horse    1.53146    0.08349   18.34   <2e-16 ***
-log_ceiling  0.12346    0.08230    1.50    0.135    
+(Intercept)  3.75306    0.89258   4.205 4.06e-05 ***
+log_age     -1.52798    0.06334 -24.122  < 2e-16 ***
+pass         0.04793    0.02155   2.224   0.0273 *  
+tdrag       -0.46085    0.07549  -6.105 5.87e-09 ***
+wtop        -0.04893    0.03090  -1.584   0.1150    
+fixgear     -0.18054    0.07073  -2.553   0.0115 *  
+log_fuel     0.16775    0.08397   1.998   0.0472 *  
+log_cruise   1.08384    0.19053   5.689 4.90e-08 ***
+log_horse    1.02080    0.13511   7.555 1.83e-12 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 0.2311 on 191 degrees of freedom
-Multiple R-squared:  0.9138,	Adjusted R-squared:  0.9125 
-F-statistic: 675.2 on 3 and 191 DF,  p-value: < 2.2e-16
+Residual standard error: 0.1891 on 186 degrees of freedom
+Multiple R-squared:  0.9438,	Adjusted R-squared:  0.9414 
+F-statistic: 390.8 on 8 and 186 DF,  p-value: < 2.2e-16
 
 
 
@@ -725,7 +771,12 @@ f) Finally, for each of the variables in the datasets,
 
 ```
 
-Enter your response here.
+Variables (Pass, Wtop, fixgear, log_cruise, log_fuel,tdrag, log_horse)
+all negatively effect the overall adjusted Rsquared,thus increase the price
+of a plane positively.
+
+Variable (Log_Ceiling) has a significant T-stat but with an insignificant
+coefficient the effect is negligable
 
 
 ```
